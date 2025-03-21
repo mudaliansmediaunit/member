@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Number verification with OTP</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-GCFCN7G09K"
@@ -58,87 +57,17 @@
     <div class="container">
       <div id="sender">
         <input type="text" id="number" placeholder="+923..." />
-        <input type="button" id="send" value="Send" onClick='phoneAuth()' />
+        <div id="recaptcha-container"></div>
+        <button id="send" value="Send">Send</button>
       </div>
       <div id="verifier" style="display: none">
         <input type="text" id="verificationcode" placeholder="OTP Code" />
-        <input type="button" id="verify" value="Verify" onClick='codecheck()' />
+        <input type="button" id="verify" value="Verify" />
         <div id="suc" class="p-conf">Number Verified</div>
         <div id="err" class="n-conf">OTP ERROR</div>
       </div>
     </div>
-    <script type="module">
-      // Import the functions you need from the SDKs you need
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-      import {
-        getAuth,
-        RecaptchaVerifier,
-        signInWithPhoneNumber,
-      } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-      // TODO: Add SDKs for Firebase products that you want to use
-      // https://firebase.google.com/docs/web/setup#available-libraries
-
-      // Your web app's Firebase configuration
-      const firebaseConfig = {
-        apiKey: "AIzaSyA1Sa0PMmh8LK5F-liz7CDR-aENyW85Mdg",
-        authDomain: "mmumarks.firebaseapp.com",
-        projectId: "mmumarks",
-        storageBucket: "mmumarks.firebasestorage.app",
-        messagingSenderId: "970177041618",
-        appId: "1:970177041618:web:81b1e00d0b80ed2380c90b",
-      };
-
-      // Initialize Firebase
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth();
-      window.recaptchaVerifier = new RecaptchaVerifier(auth, "sign-in-button", {
-        size: "invisible",
-        callback: (response) => {
-          // reCAPTCHA solved, allow signInWithPhoneNumber.
-          onSignInSubmit();
-        },
-      });
-      //phoneAuth();
-      //codecheck();
-      const phoneNumber = document.getElementById("number").value;
-      const appVerifier = window.recaptchaVerifier;
-
-      function phoneAuth() {
-        signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-          .then((confirmationResult) => {
-            // SMS sent. Prompt user to type the code from the message, then sign the
-            // user in with confirmationResult.confirm(code).
-            document.getElementById("verifier").style.display = "block";
-            document.getElementById("sender").style.display = "none";
-            window.confirmationResult = confirmationResult;
-            // ...
-          })
-          .catch((error) => {
-            // Error; SMS not sent
-            console.log("sms not sent!!");
-            // Or, if you haven't stored the widget ID:
-            window.recaptchaVerifier.render().then(function (widgetId) {
-              grecaptcha.reset(widgetId);
-            });
-            // ...
-          });
-      }
-      function codecheck() {
-        const code = document.getElementById("verificationcode").value;
-        confirmationResult
-          .confirm(code)
-          .then((result) => {
-            // User signed in successfully.
-            const user = result.user;
-            document.getElementById("suc").style.display = "block";
-            // ...
-          })
-          .catch((error) => {
-            // User couldn't sign in (bad verification code?)
-            document.getElementById("err").style.display = "block";
-            // ...
-          });
-      }
-    </script>
+    <script type="module" src="script.js"></script>
   </body>
 </html>
+

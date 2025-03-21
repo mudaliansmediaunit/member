@@ -1,0 +1,212 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Number verification with OTP</title>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GCFCN7G09K"
+    ></script>
+    <style>
+      .container {
+        width: 302px;
+        height: 175px;
+        position: absolute;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        margin: auto;
+      }
+      #number,
+      #verificationcode {
+        width: calc(100% - 24px);
+        padding: 10px;
+        font-size: 20px;
+        margin-bottom: 5px;
+        outline: none;
+      }
+      #recaptcha-container {
+        margin-bottom: 5px;
+      }
+      #send,
+      #verify,
+      #resend {
+        width: 100%;
+        height: 40px;
+        outline: none;
+      }
+      .p-conf,
+      .n-conf {
+        width: calc(100% - 22px);
+        border: 2px solid green;
+        border-radius: 4px;
+        padding: 8px 10px;
+        margin: 4px 0px;
+        background-color: rgba(0, 249, 12, 0.5);
+        display: none;
+      }
+      .n-conf {
+        border-color: red;
+        background-color: rgba(255, 0, 4, 0.5);
+      }
+      .loading {
+        display: none;
+        text-align: center;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="sender">
+        <input type="text" id="number" placeholder="+923..." />
+        <div id="recaptcha-container"></div>
+        <button id="send" value="Send">Send</button>
+        <div class="loading" id="send-loading">Sending...</div>
+      </div>
+      <div id="verifier" style="display: none">
+        <input type="text" id="verificationcode" placeholder="OTP Code" />
+        <button id="verify" value="Verify">Verify</button>
+        <button id="resend" value="Resend">Resend Code</button>
+        <div class="loading" id="verify-loading">Verifying...</div>
+        <div id="suc" class="p-conf">Number Verified</div>
+        <div id="err" class="n-conf">OTP ERROR</div>
+      </div>
+    </div>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+      import {
+        getAuth,
+        RecaptchaVerifier,
+        signInWithPhoneNumber,
+      } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyA1Sa0PMmh8LK5F-liz7CDR-aENyW85Mdg", // Replace with your actual API key
+        authDomain: "mmumarks.firebaseapp.com",
+        projectId: "mmumarks",
+        storageBucket: "mmumarks.firebasestorage.app",
+        messagingSenderId: "970177041618",
+        appId: "1:970177041618:web:81b1e00d0b80ed2380c90b",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth();
+
+      // Initialize reCAPTCHA verifier
+      window.recaptchaVerifier = new RecaptchaVerifier(
+        auth, // auth object is the first argument
+        "recaptcha-container",
+        {
+          size: "invisible",
+          callback: (response) => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            onSignInSubmit();
+          },
+          "expired-callback": () => {
+            // Response expired. Ask user to solve reCAPTCHA again.
+            // ...
+            console.log("recaptcha expired");
+          },
+        }
+      );
+
+      var sendbtn = document.getElementById("send");
+      var verifybtn = document.getElementById("verify");
+      var resendbtn = document.getElementById("resend");
+      var sendLoading = document.getElementById("send-loading");
+      var verifyLoading = document.getElementById("verify-loading");
+
+      sendbtn.addEventListener("click", () => {
+        const phoneNumber = document.getElementById("number").value.trim();
+        const phoneRegex = /^\+\d{1,3}\d{1,14}$/; // E.164 format regex
+
+        if (!phoneRegex.test(phoneNumber)) {
+          alert("Please enter a valid phone number in E.164 format.");
+          return;
+        } else {
+          console.log("working");
+          sendLoading.style.display = "block";
+          sendbtn.disabled = true;
+          window.recaptchaVerifier
+            .verify()
+            .then(function () {
+              const appVerifier = window.recaptchaVerifier;
+              signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                  // SMS sent. Prompt user to type the code from the message, then sign the
+                  // user in with confirmationResult.confirm(code).
+                  document.getElementById("verifier").style.display = "block";
+                  document.getElementById("sender").style.display = "none";
+                  window.confirmationResult = confirmationResult;
+                  sendLoading.style.display = "none";
+                  sendbtn.disabled = false;
+                  // ...
+                })
+                .catch((error) => {
+                  // Error; SMS not sent
+                  console.log("sms not sent!!");
+                  console.log(error);
+                  sendLoading.style.display = "none";
+                  sendbtn.disabled = false;
+                  // Or, if you haven't stored the widget ID:
+                  window.recaptchaVerifier.render().then(function (widgetId) {
+                    grecaptcha.reset(widgetId);
+                  });
+                  // ...
+                });
+            })
+            .catch((error) => {
+              console.log("recaptcha error");
+              console.log(error);
+              sendLoading.style.display = "none";
+              sendbtn.disabled = false;
+            });
+        }
+      });
+
+      verifybtn.addEventListener("click", () => {
+        const code = document.getElementById("verificationcode").value;
+        if (window.confirmationResult) {
+          verifyLoading.style.display = "block";
+          verifybtn.disabled = true;
+          window.confirmationResult
+            .confirm(code)
+            .then((result) => {
+              // User signed in successfully.
+              const user = result.user;
+              document.getElementById("suc").style.display = "block";
+              verifyLoading.style.display = "none";
+              verifybtn.disabled = false;
+            })
+            .catch((error) => {
+              // User couldn't sign in (bad verification code?)
+              document.getElementById("err").style.display = "block";
+              verifyLoading.style.display = "none";
+              verifybtn.disabled = false;
+            });
+        } else {
+          // Handle the case where confirmationResult is not defined
+          console.log("Please send the OTP first.");
+          alert("Please send the OTP before verifying.");
+          verifyLoading.style.display = "none";
+          verifybtn.disabled = false;
+        }
+      });
+
+      resendbtn.addEventListener("click", () => {
+        // Resend the code
+        document.getElementById("verifier").style.display = "none";
+        document.getElementById("sender").style.display = "block";
+      });
+    </script>
+  </body>
+</html> -->
