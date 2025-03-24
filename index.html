@@ -1,73 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Number verification with OTP</title>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-GCFCN7G09K"
-    ></script>
-    <style>
-      .container {
-        width: 302px;
-        height: 175px;
-        position: absolute;
-        left: 0px;
-        right: 0px;
-        top: 0px;
-        bottom: 0px;
-        margin: auto;
-      }
-      #number,
-      #verificationcode {
-        width: calc(100% - 24px);
-        padding: 10px;
-        font-size: 20px;
-        margin-bottom: 5px;
-        outline: none;
-      }
-      #recaptcha-container {
-        margin-bottom: 5px;
-      }
-      #send,
-      #verify {
-        width: 100%;
-        height: 40px;
-        outline: none;
-      }
-      .p-conf,
-      .n-conf {
-        width: calc(100% - 22px);
-        border: 2px solid green;
-        border-radius: 4px;
-        padding: 8px 10px;
-        margin: 4px 0px;
-        background-color: rgba(0, 249, 12, 0.5);
-        display: none;
-      }
-      .n-conf {
-        border-color: red;
-        background-color: rgba(255, 0, 4, 0.5);
-      }
-    </style>
+    <link rel="stylesheet" href="index.css" />
+    <title>Home | MMU</title>
   </head>
-
   <body>
     <div class="container">
-      <div id="sender">
-        <input type="text" id="number" placeholder="+923..." />
-        <div id="recaptcha-container"></div>
-        <button id="send" value="Send">Send</button>
-      </div>
-      <div id="verifier" style="display: none">
-        <input type="text" id="verificationcode" placeholder="OTP Code" />
-        <input type="button" id="verify" value="Verify" />
-        <div id="suc" class="p-conf">Number Verified</div>
-        <div id="err" class="n-conf">OTP ERROR</div>
-      </div>
+      <header>
+        <img src="images/logo.png" style="width: 60px" alt="" />
+      </header>
+      <h4>Enter the Passkey</h4>
+      <form id="passkeyForm">
+        <div class="input-field">
+          <input type="number" id="num1" />
+          <input type="number" id="num2" disabled />
+          <input type="number" id="num3" disabled />
+        </div>
+        <button>Next</button>
+      </form>
+      <p>Developed By Rivith Abinidu</p>
     </div>
-    <script type="module" src="script.js"></script>
+    <!-- <script>
+      window.localStorage.setItem("adminCanLogin", "false");
+    </script> -->
+
+    <script>
+      document
+        .getElementById("passkeyForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent page reload
+
+          // Your logic here (e.g., get input values, validate, etc.)
+          const num1 = document.getElementById("num1").value;
+          const num2 = document.getElementById("num2").value;
+          const num3 = document.getElementById("num3").value;
+          const passkey = num1 + num2 + num3;
+
+          console.log(passkey);
+
+
+          // Add your code to process the data or navigate to the next step
+        });
+    </script>
+    <script>
+      // if the value has more than one character then clear it
+      const inputs = document.querySelectorAll("input"),
+        button = document.querySelector("button");
+
+      // iterate over all inputs
+      inputs.forEach((input, index1) => {
+        input.addEventListener("keyup", (e) => {
+          // This code gets the current input element and stores it in the currentInput variable
+          // This code gets the next sibling element of the current input element and stores it in the nextInput variable
+          // This code gets the previous sibling element of the current input element and stores it in the prevInput variable
+          const currentInput = input,
+            nextInput = input.nextElementSibling,
+            prevInput = input.previousElementSibling;
+
+          // if the value has more than one character then clear it
+          if (currentInput.value.length > 1) {
+            currentInput.value = "";
+            return;
+          }
+          // if the next input is disabled and the current value is not empty
+          //  enable the next input and focus on it
+          if (
+            nextInput &&
+            nextInput.hasAttribute("disabled") &&
+            currentInput.value !== ""
+          ) {
+            nextInput.removeAttribute("disabled");
+            nextInput.focus();
+          }
+
+          // if the backspace key is pressed
+          if (e.key === "Backspace") {
+            // iterate over all inputs again
+            inputs.forEach((input, index2) => {
+              // if the index1 of the current input is less than or equal to the index2 of the input in the outer loop
+              // and the previous element exists, set the disabled attribute on the input and focus on the previous element
+              if (index1 <= index2 && prevInput) {
+                input.setAttribute("disabled", true);
+                input.value = "";
+                prevInput.focus();
+              }
+            });
+          }
+          //if the fourth input( which index number is 3) is not empty and has not disable attribute then
+          //add active class if not then remove the active class.
+          if (!inputs[2].disabled && inputs[2].value !== "") {
+            button.classList.add("active");
+            return;
+          }
+          button.classList.remove("active");
+        });
+      });
+
+      //focus the first input which index is 0 on window load
+      window.addEventListener("load", () => inputs[0].focus());
+    </script>
+    <script src="index.js" type="module"></script>
   </body>
 </html>
-
