@@ -28,9 +28,13 @@ const app = initializeApp(firebaseConfig);
 let addbtn = document.getElementById("memberadd");
 
 function writeUserData() {
-  let passkey = document.getElementById("passkey").value;
-  let membername = document.getElementById("mname").value;
-  let marks = document.getElementById("marks").value;
+  let passkeyInput = document.getElementById("passkey");
+  let membernameInput = document.getElementById("mname");
+  let marksInput = document.getElementById("marks");
+
+  let passkey = passkeyInput.value;
+  let membername = membernameInput.value;
+  let marks = marksInput.value;
 
   const db = getDatabase();
   set(ref(db, "members/" + passkey), {
@@ -40,10 +44,13 @@ function writeUserData() {
   })
     .then(() => {
       alert("Record Added!");
+      passkeyInput.value = ''; // Clear input fields
+      membernameInput.value = '';
+      marksInput.value = '';
     })
     .catch((error) => {
       alert("Something Went Wrong!!!");
-      console.log(error);
+      console.error(error); // Use console.error
     });
 }
 

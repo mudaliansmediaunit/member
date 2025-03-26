@@ -13,7 +13,7 @@
     <title>Admin | MMU</title>
 </head>
 <body>
-    <h1 class="namehead">Hey, <b id="adminame">Admin</b></h1>
+    <h1 class="namehead">Hey, <b style="text-transform: capitalize;" id="adminame" onclick="changename()"></b></h1>
     <button
         type="button"
         class="btn btn-primary"
@@ -103,7 +103,7 @@
         </tbody>
       </table>
       <footer>
-        <p>Designed & Developped by Rivith Abinidu</p>
+        <p>Designed & Developed by Rivith Abinidu</p>
       </footer>
       <script
   src="https://code.jquery.com/jquery-3.7.1.js"
@@ -115,6 +115,24 @@
         crossorigin="anonymous"
     ></script>
     <script>
+      let adminname = document.getElementById('adminame');
+
+       // Initialize adminName from localStorage or default to 'Admin'
+       if (localStorage.getItem('adminName')) {
+         adminname.innerHTML = localStorage.getItem('adminName');
+       } else {
+         adminname.innerHTML = 'Admin';
+         localStorage.setItem('adminName', 'Admin'); // Set default in localStorage
+       }
+       
+       function changename() {
+         let newName = prompt('Enter Your Name...');
+         if (newName !== null && newName.trim() !== "") { // Check for null and empty input
+           localStorage.setItem('adminName', newName);
+           adminname.innerHTML = newName; // Update the displayed name
+         }
+       }
+
         if (localStorage.getItem("adminpass") !== "true") {
           alert('Login First!!!');
           window.location.href = "adminlogin.html"; // Redirect to login page
