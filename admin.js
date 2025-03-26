@@ -47,6 +47,7 @@ function writeUserData() {
       passkeyInput.value = ''; // Clear input fields
       membernameInput.value = '';
       marksInput.value = '';
+      passkeyInput.focus();
     })
     .catch((error) => {
       alert("Something Went Wrong!!!");
