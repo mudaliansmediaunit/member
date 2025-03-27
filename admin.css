@@ -30,3 +30,7 @@ body {
 
 .namehead {
     margin: 15px 0 30px
+}
+tr{
+    text-transform: capitalize;
+}
