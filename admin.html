@@ -13,139 +13,136 @@
     <title>Admin | MMU</title>
 </head>
 <body>
-    <h1 class="namehead">Hey, <b style="text-transform: capitalize;" id="adminame" onclick="changename()"></b></h1>
-    <button
-        type="button"
-        class="btn btn-primary"
-        id="addbtn"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-    >
-        Add Members
-    </button>
-    <!-- <button
-        type="button"
-        class="btn btn-primary"
-        id="addbtn"
-        data-bs-toggle="modal"
-        data-bs-target="#editModal"
-    >
-        Edit Record
-    </button> -->
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editModalLabel">Edit Member</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="editPasskey" class="form-label">Passkey</label>
-                <input type="number" class="form-control" id="editPasskey">
-              </div>
-              <div class="mb-3">
-                <label for="editName" class="form-label">Name</label>
-                <input type="text" class="form-control" id="editName">
-              </div>
-              <div class="mb-3">
-                <label for="editMarks" class="form-label">Marks</label>
-                <input type="number" class="form-control" id="editMarks">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" id="savebtn">Save changes</button>
-            </div>
-          </div>
+    <div class="container mt-4">
+        <h1 class="namehead text-center">Hey, <b style="text-transform: capitalize;" id="adminame" onclick="changename()"></b></h1>
+        <div class="d-flex justify-content-center mb-3">
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="addbtn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+            >
+                Add Members
+            </button>
         </div>
-      </div>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
+
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="mb-3">
-                            <label for="recipient-name" class="col-form-label">Passkey:</label>
-                            <input type="number" class="form-control" id="passkey">
+                            <label for="editPasskey" class="form-label">Passkey</label>
+                            <input type="number" class="form-control" id="editPasskey">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Name:</label>
-                            <input type="text" class="form-control" id="mname"></textarea>
+                            <label for="editName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="editName">
                         </div>
                         <div class="mb-3">
-                            <label for="message-text" class="col-form-label">Marks:</label>
-                            <input type="number" class="form-control" id="marks"></textarea>
+                            <label for="editMarks" class="form-label">Marks</label>
+                            <input type="number" class="form-control" id="editMarks">
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="memberadd" class="btn btn-primary">Add Record</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="savebtn">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div><br><br><br>
-    <table class="table" id="dataTables">
-        <thead>
-          <tr>
-            <th scope="col">Passkey</th>
-            <th scope="col">Name</th>
-            <th scope="col">Marks</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody id="dataTableBody">
-        </tbody>
-      </table>
-      <footer>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add New Member</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="recipient-name" class="col-form-label">Passkey:</label>
+                                <input type="number" class="form-control" id="passkey">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="mname">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message-text" class="col-form-label">Marks:</label>
+                                <input type="number" class="form-control" id="marks">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="memberadd" class="btn btn-primary">Add Record</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table" id="dataTables">
+                <thead>
+                    <tr>
+                        <th scope="col">Passkey</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Marks</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <footer class="mt-4 text-center">
         <p>Designed & Developed by Rivith Abinidu</p>
-      </footer>
-      <script
-  src="https://code.jquery.com/jquery-3.7.1.js"
-  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-  crossorigin="anonymous"></script>
+    </footer>
+
+    <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"
     ></script>
     <script>
-      let adminname = document.getElementById('adminame');
+        let adminname = document.getElementById('adminame');
 
-       // Initialize adminName from localStorage or default to 'Admin'
-       if (localStorage.getItem('adminName')) {
-         adminname.innerHTML = localStorage.getItem('adminName');
-       } else {
-         adminname.innerHTML = 'Admin';
-         localStorage.setItem('adminName', 'Admin'); // Set default in localStorage
-       }
-       
-       function changename() {
-         let newName = prompt('Enter Your Name...');
-         if (newName !== null && newName.trim() !== "") { // Check for null and empty input
-           localStorage.setItem('adminName', newName);
-           adminname.innerHTML = newName; // Update the displayed name
-         }
-       }
+        if (localStorage.getItem('adminName')) {
+            adminname.innerHTML = localStorage.getItem('adminName');
+        } else {
+            adminname.innerHTML = 'Admin';
+            localStorage.setItem('adminName', 'Admin');
+        }
+
+        function changename() {
+            let newName = prompt('Enter Your Name...');
+            if (newName !== null && newName.trim() !== "") {
+                localStorage.setItem('adminName', newName);
+                adminname.innerHTML = newName;
+            }
+        }
 
         if (localStorage.getItem("adminpass") !== "true") {
-          alert('Login First!!!');
-          window.location.href = "adminlogin.html"; // Redirect to login page
+            alert('Login First!!!');
+            window.location.href = "adminlogin.html";
         }
 
         const exampleModal = document.getElementById('exampleModal')
         if (exampleModal) {
             exampleModal.addEventListener('show.bs.modal', event => {
-                // Button that triggered the modal
                 const button = event.relatedTarget
-                // Extract info from data-bs-* attributes
                 const recipient = button.getAttribute('data-bs-whatever')
-                // Update the modal's content.
                 const modalTitle = exampleModal.querySelector('.modal-title')
                 const modalRecipient = exampleModal.querySelector('.modal-body input')
 
@@ -155,6 +152,5 @@
         }
     </script>
     <script type="module" src="admin.js"></script>
-
 </body>
 </html>
