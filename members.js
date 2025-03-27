@@ -60,6 +60,7 @@ function displayData(data) {
       <p>You have earned,</p>
       <h1 id="mymarks">${data.marks || "N/A"}</h1>
       <p>marks in total.</p>
+      <a href="index.html">Back to Home</a>
     `;
   }
 

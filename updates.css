@@ -1,0 +1,106 @@
+body {
+  background: #4070f4;
+  color: #eee;
+  font-family: "Poppins", sans-serif;
+}
+
+.update-entry {
+  border: 1px solid #333;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #eee;
+  border-radius: 8px;
+  flex-direction: column; /* Stack elements vertically on mobile */
+  align-items: flex-start; /* Align items to the start on mobile */
+}
+
+.update-header {
+  flex-basis: 70%;
+}
+
+.update-title {
+  margin-bottom: 10px;
+  color: black;
+}
+
+.stardate {
+  font-size: 0.8em;
+  color: #888;
+}
+
+.transmission-received {
+  font-size: 0.8em;
+  color: green;
+}
+
+.update-content {
+  flex-basis: 70%;
+}
+
+.technical-details {
+  display: none;
+  margin-top: 10px;
+}
+
+.technical-details-button {
+  background-color: #444;
+  color: #eee;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.update-visual {
+  flex-basis: 20%;
+  text-align: center;
+  font-size: 2em;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.info{
+    color: black;
+}
+
+.smallone{
+    color: rgb(39, 49, 0);
+}
+
+/* Tablet and larger screens */
+@media (min-width: 768px) {
+  .update-entry {
+    flex-direction: row; /* Return to row layout on larger screens */
+    align-items: center; /* Align items vertically in the center */
+  }
+
+  .update-visual {
+    width: auto;
+    margin-top: 0;
+  }
+}
+
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .update-entry {
+    padding: 30px;
+  }
+}
+
+.creative-button {
+  display: inline-block;
+  padding: 15px 30px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  align-items: center;
+  text-align: center;
+}
+
+/* Add animations, background styles, etc. */
