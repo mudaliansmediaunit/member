@@ -87,7 +87,7 @@ function readDataAndPopulateTable() {
 
         const editButton = document.createElement("button");
         editButton.textContent = "Edit";
-        editButton.classList.add("btn", "btn-primary", "btn-sm", "me-2"); // Added margin right
+        editButton.classList.add("btn", "btn-primary", "btn-sm", "me-2", "hidethis"); // Added margin right
         editButton.addEventListener("click", () => {
           openEditModal(key, member);
         });
@@ -95,7 +95,7 @@ function readDataAndPopulateTable() {
 
         const deleteButton = document.createElement("button");
         deleteButton.textContent = "Delete";
-        deleteButton.classList.add("btn", "btn-danger", "btn-sm");
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm", "hidethis");
         deleteButton.addEventListener("click", () => {
           deleteMember(key);
         });
