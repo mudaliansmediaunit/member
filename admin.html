@@ -14,11 +14,11 @@
 </head>
 <body>
     <div class="container mt-4">
-        <h1 class="namehead text-center">Hey, <b style="text-transform: capitalize;" id="adminame" onclick="changename()"></b></h1>
+        <h1 class="namehead text-center hidethis">Hey, <b style="text-transform: capitalize;" id="adminame" onclick="changename()"></b></h1>
         <div class="d-flex justify-content-center mb-3">
             <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-primary hidethis"
                 id="addbtn"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
@@ -94,13 +94,13 @@
                         <th scope="col">Passkey</th>
                         <th scope="col">Name</th>
                         <th scope="col">Marks</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col" class='hidethis'>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="dataTableBody">
                 </tbody>
             </table>
-            <button type="button" class="btn btn-success" onclick="window.print()">Success</button>
+            <button type="button" class="btn btn-success hidethis" onclick="window.print()">Print</button>
         </div>
     </div>
     <footer class="mt-4 text-center">
