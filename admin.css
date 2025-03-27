@@ -34,3 +34,8 @@ body {
 tr{
     text-transform: capitalize;
 }
+@media print{
+    .hidethis{
+        display: none;
+    }
+}
